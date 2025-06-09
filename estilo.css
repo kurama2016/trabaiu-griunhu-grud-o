@@ -9,6 +9,11 @@ height: 100vh;
 
 background-image: url(./img/image\ 5\ \(1\).png);
 background-repeat: no-repeat;
+background-size: cover;
+background-position-y: center;
+background-position-x: center;
+
+
 }
 
 
