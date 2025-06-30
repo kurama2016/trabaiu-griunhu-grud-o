@@ -1,2 +1,4 @@
-background: #0f7bba;
-background: linear-gradient(90deg, rgba(15, 123, 186, 1) 0%, rgba(253, 182, 29, 1) 50%, rgba(252, 96, 69, 1) 100%);
+body{
+background: #0F7BB7;
+background: linear-gradient(90deg, rgba(15, 123, 183, 1) 0%, rgba(210, 217, 134, 1) 47%, rgba(194, 129, 72, 1) 100%);
+}
