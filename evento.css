@@ -1,4 +1,8 @@
 body{
 background: #0F7BB7;
 background: linear-gradient(90deg, rgba(15, 123, 183, 1) 0%, rgba(210, 217, 134, 1) 47%, rgba(194, 129, 72, 1) 100%);
+font-size: 100px;
+
+
+
 }
