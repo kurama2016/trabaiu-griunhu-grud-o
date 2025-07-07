@@ -1,531 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário de Festejos Rurais no Brasil</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Festivais Rurais no Brasil</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #2e7d32;
-            --secondary: #4caf50;
-            --accent: #ff9800;
-            --background: #f5f5f5;
-            --card: #ffffff;
-            --text: #333333;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-            color: var(--text);
-            line-height: 1.6;
-            padding-bottom: 2rem;
-        }
-
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(#ff9966, #ff5e62);
+            font-family: Arial;
+            margin: 0;
+            padding: 20px;
             color: white;
-            padding: 1.5rem;
+        }
+        h1, h2 {
             text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
         }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
+        h2 {
+            color: #fffacd;
         }
-
-        .voltar-btn {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .voltar-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-50%) scale(1.05);
-        }
-
-        .voltar-btn i {
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            font-weight: 300;
-            max-width: 800px;
-        }
-
-        .intro {
-            text-align: center;
-            padding: 2rem 1rem;
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: 1.1rem;
-            color: #444;
-            background-color: rgba(255, 255, 255, 0.8);
+        .mes {
+            background: rgba(0,0,0,0.3);
+            padding: 15px;
+            margin: 0 0 20px 0;
             border-radius: 10px;
-            margin-top: 1rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
-
-        .calendar-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 1rem;
-        }
-
-        .month-section {
-            margin-bottom: 3rem;
-            background: var(--card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .month-section:hover {
-            transform: translateY(-5px);
-        }
-
-        .month-header {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
-            padding: 1.2rem 1.5rem;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .month-header i {
-            font-size: 1.5rem;
-        }
-
-        .events-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-            padding: 1.5rem;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
-            border-left: 4px solid var(--accent);
-            transition: all 0.3s ease;
-        }
-
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        .event-header {
-            padding: 1.2rem;
-            background: rgba(255, 152, 0, 0.08);
-        }
-
-        .event-name {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .event-location {
-            color: var(--secondary);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .event-description {
-            padding: 1.2rem;
-            font-size: 1rem;
-            color: #555;
-        }
-
-        .month-period {
-            font-size: 1rem;
-            font-weight: 400;
-            opacity: 0.9;
-            margin-top: 0.3rem;
-        }
-
-        footer {
+        .voltar {
+            font-size: 40px;
+            text-decoration: none;
+            display: block;
             text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-            color: #666;
-            font-size: 0.9rem;
-        }
-
-        @media (max-width: 768px) {
-            .events-container {
-                grid-template-columns: 1fr;
-            }
-            
-            .month-header {
-                font-size: 1.5rem;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .voltar-btn {
-                position: relative;
-                left: 0;
-                top: 0;
-                transform: none;
-                margin-bottom: 1rem;
-            }
-            
-            .header-content {
-                flex-direction: column;
-            }
+            margin-bottom: 20px;
         }
     </style>
 </head>
-
 <body>
-    <header>
-        <button class="voltar-btn" onclick="window.history.back()">
-            <i class="fas fa-arrow-left"></i>
-        </button>
-        <div class="header-content">
-            <h1>Calendário de Festejos Rurais no Brasil</h1>
-            <p class="subtitle">Celebrando as tradições e a cultura do campo em todo o território nacional</p>
-        </div>
-    </header>
+    <a href="index.html" class="voltar">↑</a>
+    
+    <h1>Festivais e Eventos</h1>
+    <h2>Calendário de Festejos Rurais no Brasil</h2>
 
-    <div class="intro">
-        <p>O Brasil rural é rico em tradições e festividades que celebram a cultura caipira, a fé popular e as colheitas. Este calendário apresenta as principais festas rurais que acontecem em todo o país, mês a mês, preservando nossas raízes e identidade cultural.</p>
+    <div class="mes">
+        <h2>Janeiro</h2>
+        <p><strong>Festa de São Benedito</strong> (Diversos estados) – Celebração com danças, comidas típicas e devoção ao santo padroeiro dos negros.</p>
+        <p><strong>Festa do Divino Espírito Santo</strong> (Início em algumas regiões) – Tradição folclórica com cavalhadas e procissões.</p>
     </div>
 
-    <div class="calendar-container">
-        <!-- Janeiro -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-snowflake"></i>
-                <h2>Janeiro</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de São Benedito</h3>
-                        <p class="event-location">Diversos estados</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Celebração com danças, comidas típicas e devoção ao santo padroeiro dos negros.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Divino Espírito Santo</h3>
-                        <p class="event-location">Início em algumas regiões</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Tradição folclórica com cavalhadas e procissões.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Fevereiro/Março -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-mask"></i>
-                <h2>Fevereiro/Março</h2>
-                <span class="month-period">(Datas variam conforme o Carnaval)</span>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Carnaval Rural</h3>
-                        <p class="event-location">Nordeste, especialmente Pernambuco</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Maracatus rurais e cavalo-marinho.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Boi-de-Mamão</h3>
-                        <p class="event-location">Santa Catarina</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Folguedo típico com danças e brincadeiras rurais.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Março/Abril -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-church"></i>
-                <h2>Março/Abril</h2>
-                <span class="month-period">(Páscoa)</span>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Judas</h3>
-                        <p class="event-location">Interior de SP, MG, GO</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Boneco queimado representando o traidor de Cristo, com humor caipira.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Maio -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-dove"></i>
-                <h2>Maio</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Divino Espírito Santo</h3>
-                        <p class="event-location">Principalmente em cidades históricas como Paraty e Pirenópolis</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Cortejos, missas e distribuição de comida.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de Santo Antônio</h3>
-                        <p class="event-location">Nordeste e Sudeste</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Celebração com quermesses e leilões de prendas.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Junho -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-fire"></i>
-                <h2>Junho</h2>
-                <span class="month-period">(Festa Junina - Principal celebração rural do Brasil)</span>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de São João</h3>
-                        <p class="event-location">Nordeste, Sudeste e Centro-Oeste</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Fogueiras, quadrilhas, comidas de milho e forró.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de São Pedro</h3>
-                        <p class="event-location">Diversos estados</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Procissões de barcos em cidades ribeirinhas.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de Santo Antônio</h3>
-                        <p class="event-location">13/06</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Casamentos caipiras e pau-de-sebo.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Julho -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-hat-cowboy"></i>
-                <h2>Julho</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Peão de Boiadeiro</h3>
-                        <p class="event-location">Barretos/SP e outras cidades</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Rodeios, música sertaneja e cultura caipira.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Milho</h3>
-                        <p class="event-location">Lucas do Rio Verde/MT e outras cidades</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Celebração da colheita com pratos típicos.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Agosto -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-music"></i>
-                <h2>Agosto</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Folclore</h3>
-                        <p class="event-location">Diversos estados</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Danças como catira, cururu e congada.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Romaria de Nossa Senhora da Abadia</h3>
-                        <p class="event-location">Romaria em MG e GO</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Tradição religiosa com peregrinação a cavalo.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Setembro -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-praying-hands"></i>
-                <h2>Setembro</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Rosário</h3>
-                        <p class="event-location">Minas Gerais e Goiás</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Congadas e reinados negros em homenagem a Nossa Senhora do Rosário.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Outubro -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-apple-alt"></i>
-                <h2>Outubro</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Caju e da Rapadura</h3>
-                        <p class="event-location">Nordeste</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Celebração da colheita e da produção de rapadura.</p>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Porco no Rolete</h3>
-                        <p class="event-location">Paraná e Santa Catarina</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Tradição gastronômica rural.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Novembro -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-coffee"></i>
-                <h2>Novembro</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa do Café</h3>
-                        <p class="event-location">MG e SP</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Celebração da colheita do café com música caipira.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dezembro -->
-        <section class="month-section">
-            <div class="month-header">
-                <i class="fas fa-star"></i>
-                <h2>Dezembro</h2>
-            </div>
-            <div class="events-container">
-                <div class="event-card">
-                    <div class="event-header">
-                        <h3 class="event-name">Festa de Nossa Senhora do Rosário</h3>
-                        <p class="event-location">Finais de novembro/início de dezembro em algumas cidades</p>
-                    </div>
-                    <div class="event-description">
-                        <p>Encerramento do ciclo de festas religiosas rurais.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="mes">
+        <h2>Fevereiro/Março</h2>
+        <p><strong>Carnaval Rural</strong> (Nordeste, especialmente Pernambuco) – Maracatus rurais e cavalo-marinho.</p>
+        <p><strong>Festa do Boi-de-Mamão</strong> (Santa Catarina) – Folguedo típico com danças e brincadeiras rurais.</p>
     </div>
 
-    <footer>
-        <p>Calendário de Festejos Rurais no Brasil | Preservando nossas tradições culturais</p>
-        <p>© 2023 - Todos os direitos reservados</p>
-    </footer>
+    <div class="mes">
+        <h2>Março/Abril (Páscoa)</h2>
+        <p><strong>Festa do Judas</strong> (Interior de SP, MG, GO) – Boneco queimado representando o traidor de Cristo, com humor caipira.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Maio</h2>
+        <p><strong>Festa do Divino Espírito Santo</strong> (Cidades históricas) – Cortejos, missas e distribuição de comida.</p>
+        <p><strong>Festa de Santo Antônio</strong> (Nordeste/Sudeste) – Celebração com quermesses e leilões de prendas.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Junho (Festa Junina)</h2>
+        <p><strong>Festa de São João</strong> (Nordeste, Sudeste e Centro-Oeste) – Fogueiras, quadrilhas, comidas de milho e forró.</p>
+        <p><strong>Festa de São Pedro</strong> (Diversos estados) – Procissões de barcos em cidades ribeirinhas.</p>
+        <p><strong>Festa de Santo Antônio</strong> (13/06) – Casamentos caipiras e pau-de-sebo.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Julho</h2>
+        <p><strong>Festa do Peão de Boiadeiro</strong> (Barretos/SP) – Rodeios, música sertaneja e cultura caipira.</p>
+        <p><strong>Festa do Milho</strong> (Lucas do Rio Verde/MT) – Celebração da colheita com pratos típicos.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Agosto</h2>
+        <p><strong>Festa do Folclore</strong> (Diversos estados) – Danças como catira, cururu e congada.</p>
+        <p><strong>Romaria de Nossa Senhora da Abadia</strong> (MG e GO) – Peregrinação a cavalo.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Setembro</h2>
+        <p><strong>Festa do Rosário</strong> (Minas Gerais e Goiás) – Congadas e reinados negros.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Outubro</h2>
+        <p><strong>Festa do Caju e da Rapadura</strong> (Nordeste) – Celebração da colheita e produção de rapadura.</p>
+        <p><strong>Festa do Porco no Rolete</strong> (PR e SC) – Tradição gastronômica rural.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Novembro</h2>
+        <p><strong>Festa do Café</strong> (MG e SP) – Celebração da colheita do café com música caipira.</p>
+    </div>
+
+    <div class="mes">
+        <h2>Dezembro</h2>
+        <p><strong>Festa de Nossa Senhora do Rosário</strong> (Finais de novembro/início de dezembro) – Celebrações religiosas.</p>
+    </div>
 </body>
-
 </html>
